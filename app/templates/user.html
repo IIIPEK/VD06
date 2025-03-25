@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Простой блог{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Простой блог</h1>
+
+        <!-- Форма для добавления поста -->
+        <form action="/blog/" method="post" class="mb-5">
+            <div class="mb-3">
+                <label for="name" class="form-label fw-bold">Имя</label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Введите свое имя" required>
+            </div>
+            <div class="mb-3">
+                <label for="title" class="form-label fw-bold">Адрес</label>
+                <input type="text" name="title" id="title" class="form-control" placeholder="Введите свое имя" required>
+            </div>
+            <div class="mb-3">
+                <label for="text" class="form-label fw-bold">Адрес</label>
+                <textarea name="text" id="text" class="form-control" rows="5" placeholder="Введите текст поста" required></textarea>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </form>
+
+        <hr>
+
+        <!-- Список постов -->
+        {% for post in posts %}
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">{{ post.title }}</h4>
+                    <p class="card-text">{{ post.text }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
