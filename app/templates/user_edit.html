@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Редактировать пользователя{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Редактировать пользователя</h3>
+            </div>
+            <div class="card-body">
+                <form action="/user/" method="post">
+                    <div class="mb-3">
+                        <label for="name" class="form-label fw-bold">Имя</label>
+                        <input type="text" name="name" id="name" class="form-control" value="{{ user.name }}" placeholder="Введите свое имя" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label fw-bold">Адрес</label>
+                        <input type="text" name="address" id="address" class="form-control" value="{{ user.address }}" placeholder="Введите свой адрес" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="hobby" class="form-label fw-bold">Хобби</label>
+                        <textarea name="hobby" id="hobby" class="form-control" rows="5" placeholder="Расскажите о своем хобби" required>{{ user.hobby }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="age" class="form-label fw-bold">Возраст</label>
+                        <input type="number" name="age" id="age" class="form-control" value="{{ user.age }}" min="18" max="115" placeholder="Введите свой возраст" required>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                        <a href="/user/" class="btn btn-secondary">Отмена</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

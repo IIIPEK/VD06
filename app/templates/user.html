@@ -1,40 +1,77 @@
 {% extends 'base.html' %}
 
-{% block title %}Простой блог{% endblock %}
+{% block title %}Форма пользователя{% endblock %}
 
 {% block content %}
-    <div class="container mt-5">
-        <h1 class="mb-4 text-center">Простой блог</h1>
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Форма пользователя</h3>
+        </div>
+        <div class="card-body">
+            <form action="/user/" method="post" class="mb-5">
+                <div class="mb-3">
+                    <label for="name" class="form-label fw-bold">Имя</label>
+                    <input type="text" name="name" id="name" class="form-control" placeholder="Введите свое имя"
+                           required data-bs-toggle="tooltip" data-bs-placement="top" title="Введите ваше полное имя">
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label fw-bold">Адрес</label>
+                    <input type="text" name="address" id="address" class="form-control" placeholder="Введите свой адрес"
+                           required>
+                </div>
+                <div class="mb-3">
+                    <label for="hobby" class="form-label fw-bold">Хобби</label>
+                    <!-- Исправил label с "Адрес" на "Хобби" -->
+                    <textarea name="hobby" id="hobby" class="form-control" rows="5"
+                              placeholder="Расскажите о своем хобби" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="age" class="form-label fw-bold">Возраст</label>
+                    <input type="number" name="age" id="age" class="form-control" placeholder="Введите свой возраст"
+                           min="18" max="115" required>
+                    <div class="invalid-feedback">Возраст должен быть от 18 до 115 лет.</div>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <button type="reset" class="btn btn-secondary">Очистить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<hr>
 
-        <!-- Форма для добавления поста -->
-        <form action="/blog/" method="post" class="mb-5">
-            <div class="mb-3">
-                <label for="name" class="form-label fw-bold">Имя</label>
-                <input type="text" name="name" id="name" class="form-control" placeholder="Введите свое имя" required>
-            </div>
-            <div class="mb-3">
-                <label for="title" class="form-label fw-bold">Адрес</label>
-                <input type="text" name="title" id="title" class="form-control" placeholder="Введите свое имя" required>
-            </div>
-            <div class="mb-3">
-                <label for="text" class="form-label fw-bold">Адрес</label>
-                <textarea name="text" id="text" class="form-control" rows="5" placeholder="Введите текст поста" required></textarea>
-            </div>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="submit" class="btn btn-primary">Сохранить</button>
-            </div>
-        </form>
-
-        <hr>
-
-        <!-- Список постов -->
-        {% for post in posts %}
-            <div class="card mb-3 shadow-sm">
-                <div class="card-body">
-                    <h4 class="card-title">{{ post.title }}</h4>
-                    <p class="card-text">{{ post.text }}</p>
+{% if user %}
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            <h3 class="mb-0">Информация о пользователе</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h5 class="fw-bold text-primary">Имя:</h5>
+                    <p class="border p-2 rounded bg-light">{{ user.name }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h5 class="fw-bold text-primary">Адрес:</h5>
+                    <p class="border p-2 rounded bg-light">{{ user.address }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h5 class="fw-bold text-primary">Хобби:</h5>
+                    <p class="border p-2 rounded bg-light">{{ user.hobby }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h5 class="fw-bold text-primary">Возраст:</h5>
+                    <p class="border p-2 rounded bg-light">{{ user.age }}</p>
                 </div>
             </div>
-        {% endfor %}
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="/user/edit" class="btn btn-warning">Редактировать</a>
+            </div>
+        </div>
     </div>
+</div>
+{% endif %}
 {% endblock %}
